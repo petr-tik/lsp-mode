@@ -158,6 +158,16 @@ Information comes from the clang.llvm.org website."
   :group 'lsp-mode
   :link '(url-link "https://clang.llvm.org/extra/clangd"))
 
+(defcustom lsp-clients-clangd-fixes-in-diagnostics t
+  "Enable/disable the 'Inline fixes for diagnostics' extension.
+Introduced in clangd-8, so make sure your LSP server supports it.
+
+More detail here
+https://clangd.llvm.org/extensions.html#inline-fixes-for-diagnostics"
+  :group 'lsp-clangd
+  :risky t
+  :type 'boolean)
+
 (defcustom lsp-clients-clangd-executable nil
   "The clangd executable to use.
 When `'non-nil' use the name of the clangd executable file
@@ -197,6 +207,7 @@ This must be set only once after loading the clang client.")
                                    'lsp-clients--clangd-command)
                   :major-modes '(c-mode c++-mode objc-mode)
                   :priority -1
+                  :custom-capabilities `((textDocument . ((publishDiagnostics . ((codeActionsInline . ,lsp-clients-clangd-fixes-in-diagnostics))))))
                   :server-id 'clangd))
 
 (defun lsp-clangd-join-region (beg end)
