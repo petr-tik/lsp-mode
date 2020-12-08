@@ -3232,6 +3232,9 @@ disappearing, unset all the variables related to it."
 
 (defun lsp--client-capabilities (&optional custom-capabilities)
   "Return the client capabilities."
+  ;; TODO replace with plist merge?
+  ;; https://emacs.stackexchange.com/a/19076
+  ;; TODO benchmark to compare
   (append
    `((workspace . ((workspaceEdit . ((documentChanges . t)
                                      (resourceOperations . ["create" "rename" "delete"])))
